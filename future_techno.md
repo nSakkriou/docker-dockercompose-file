@@ -13,3 +13,10 @@
 - Ansible
 - Terraform
 - Kubernettes
+- Jenkins
+- Prometheus
+- Grafana
+- Nexus Repository
+- Sonar (Qualité de code)
+
+RoadMap DevOps : https://xavki.blog/parcours-de-formation-devops/
