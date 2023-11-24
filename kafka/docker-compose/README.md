@@ -1,0 +1,1 @@
+Kafka à besoin de Zookeeper pour fonctionner
