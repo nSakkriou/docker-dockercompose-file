@@ -1,0 +1,17 @@
+{
+    "infos" : [
+        {
+        "label" : "app1",
+        "ftp_host" : "",
+        "ftp_password" : "",
+        "ftp_login" : ""
+    },
+
+    {
+        "label" : "app2",
+        "ftp_host" : "",
+        "ftp_password" : "",
+        "ftp_login" : ""
+    }
+]
+}

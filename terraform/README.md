@@ -10,7 +10,7 @@ terraform plan
 Nous montre a quoi va ressembler notre archi, comme une compilation du code pour verifier les erreurs aussi
 
 ```
-terraform apply 
+terraform apply  
 ```
 Permet d'appliquer les modifs et donc de créer / modifier les ressources voulus
 
