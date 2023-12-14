@@ -1,0 +1,7 @@
+---
+# download docker
+
+- name: "download docker compose"
+  apt:
+    name: "docker-compose"
+    state: "present"

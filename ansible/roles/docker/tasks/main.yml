@@ -1,0 +1,7 @@
+---
+# download docker
+
+- name: "download docker"
+  apt:
+    name: "docker"
+    state: "present"

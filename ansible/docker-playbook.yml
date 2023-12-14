@@ -1,0 +1,6 @@
+---
+- name: "Docker install"
+  hosts: main
+  roles:
+    - role: "docker"
+    - role : "docker-compose"

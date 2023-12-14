@@ -1,0 +1,8 @@
+---
+- name: "Custom role"
+  hosts: main
+  tasks:
+    - name: "Custom role sql"
+      count_page:
+        db_name: "test"
+        request: "select * from users;"server-bdd-php1.database.windows.net
