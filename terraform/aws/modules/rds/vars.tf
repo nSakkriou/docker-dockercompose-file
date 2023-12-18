@@ -1,19 +1,20 @@
-variable name {
-    type = string
-}
-
 variable db_name {
     type = string
 }
 
-variable username {
+variable db_user {
     type = string
 }
 
-variable password {
+variable db_password {
     type = string
 }
 
 variable subnet_id_list {
     type = list(string)
 }
+
+variable security_group_db_id{
+    type = string
+}
+

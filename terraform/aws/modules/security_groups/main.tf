@@ -16,7 +16,6 @@ resource "aws_security_group" "loadbalancer_security_group" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
@@ -33,7 +32,7 @@ resource "aws_security_group" "ec2_security_group" {
     description      = "HTTP"
     from_port        = 80
     to_port          = 80
-    protocol         = "http"
+    protocol         = "tcp"
     security_groups      = [aws_security_group.loadbalancer_security_group.id]
   }
 
@@ -41,7 +40,7 @@ resource "aws_security_group" "ec2_security_group" {
     description      = "SSH"
     from_port        = 22
     to_port          = 22
-    protocol         = "ssh"
+    protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
@@ -55,5 +54,30 @@ resource "aws_security_group" "ec2_security_group" {
 
   tags = {
     Name = "allow http for ec2 instance"
+  }
+}
+
+resource "aws_security_group" "sql_security_group" {
+  name        = "allow_mysql"
+  description = "allow mysql"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description      = "MYSQL from VPC"
+    from_port        = 3306
+    to_port          = 3306
+    protocol         = "tcp"
+    cidr_blocks      = [var.vpc_cidr]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_mysql"
   }
 }
