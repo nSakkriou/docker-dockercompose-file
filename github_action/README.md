@@ -1,0 +1,1 @@
+Il faut que la pipeline soit dans le dossier .github/workflows
