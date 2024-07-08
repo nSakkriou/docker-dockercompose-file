@@ -1,0 +1,34 @@
+Vagrant.configure("2") do |config|
+    config.vm.define "main" do |main|
+
+        main.vm.box = "debian/bookworm64"
+        main.vm.network :forwarded_port, guest: 4569, host: 4569
+        main.vm.provider "virtualbox" do |vb|
+            vb.memory = "2048"
+        end
+
+        # Update / Upgrade paquet
+        main.vm.provision "bootstrap", type: "shell", path: "shell/bootstrap.sh"
+        # Python
+        main.vm.provision "install", type: "shell", path: "shell/python_install.sh"
+
+        # Ansible
+        main.vm.provision "install", type: "shell", path: "shell/python_install.sh"
+    end
+
+    config.vm.define "server1" do |server1|
+
+        server1.vm.box = "debian/bookworm64"
+        server1.vm.network :forwarded_port, guest: 4568, host: 4568
+        server1.vm.provider "virtualbox" do |vb|
+            vb.memory = "2048"
+        end
+
+        
+        # Update / Upgrade paquet
+        server1.vm.provision "bootstrap", type: "shell", path: "shell/bootstrap.sh"
+        # Python
+        server1.vm.provision "install", type: "shell", path: "shell/python_install.sh"
+    end
+
+  end

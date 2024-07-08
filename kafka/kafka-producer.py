@@ -1,10 +1,13 @@
-from kafka import KafkaProducer
-import time
+from confluent_kafka import Producer
+import socket, time
 
-producer = KafkaProducer(bootstrap_server="localhost:29092")
+conf = {'bootstrap.servers': 'localhost:29092',
+        'client.id': socket.gethostname()}
 
-i = 0
+producer = Producer(conf)
+
 while True:
-    producer.send("quickstart-events", i)
-    i += 1
-    time.sleep(1)
+        producer.produce("quickstart-events", key="key", value="value")
+        time.sleep(1)
+        
+producer.flush()

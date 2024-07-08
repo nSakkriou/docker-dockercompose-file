@@ -1,0 +1,40 @@
+version: '3.3'
+
+volumes:
+  volume_database_project:
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+      # Ne peux pas être root
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} 
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    
+    # Si l'on a un fichier schema.sql dans le volume, il va être executé.
+    # permet d'initialiser une base
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - '33006:3306'
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    links:
+      - mysql
+    environment:
+      # Mettre le nom du service mysql
+      PMA_HOST: mysql
+      
+      # Mettre 3306 même si ce n'est pas le port qu'on expose
+      PMA_PORT: 3306
+
+      # Permet de ne pas mettre l'adresse serveur de la base
+      PMA_ARBITRARY: 0
+    ports:
+      - "8000:80"
