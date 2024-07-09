@@ -1,0 +1,31 @@
+Vagrant.configure(2) do |config|
+  # Box = Image dans le monde de docker
+  # Ca permet de la même manière de partir avec une base
+  config.vm.box = "ubuntu/focal64"
+  config.vm.network :forwarded_port, guest: 4567, host: 4567
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+
+  config.vm.provision "bootstrap",
+    type: "shell",
+    inline: <<-SHELL
+      echo "Si je veux mettre du shell c'est ici"
+    SHELL
+
+
+  config.vm.provision "install",
+    type: "shell",
+    privileged: false,
+    inline: <<-SHELL
+      echo "Si je veux dl des dependences c'est ici"
+    SHELL
+
+  config.vm.provision "run",
+    type: "shell",
+    privileged: false,
+    run: "always",
+    inline: <<-SHELL
+      echo "Si je veux lancer un programme c'est ici"
+    SHELL
+end
