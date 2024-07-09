@@ -1,8 +1,5 @@
 version: '3.3'
 
-volumes:
-  volume_database_project:
-
 services:
   mysql:
     image: mysql:latest
