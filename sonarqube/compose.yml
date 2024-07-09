@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube:lts-community
+    depends_on:
+      - sonar_database
+    environment:
+      SONAR_JDBC_URL: ${SONAR_JDBC_URL}
+      SONAR_JDBC_USERNAME: ${SONAR_JDBC_USERNAME}
+      SONAR_JDBC_PASSWORD: ${SONAR_JDBC_PASSWORD}
+    ports:
+      - "${SONAR_PORT}:9000"
+    volumes:
+      - ${SONAR_VOL_CONF}:/opt/sonarqube/conf
+      - ${SONAR_VOL_DATA}:/opt/sonarqube/data
+      - ${SONAR_VOL_EXTENSIONS}:/opt/sonarqube/extensions
+      - ${SONAR_VOL_LOGS}:/opt/sonarqube/logs
+      - ${SONAR_VOL_TEMP}:/opt/sonarqube/temp
+
+  sonar_database:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ${POSTGRES_VOL_DB}:/var/lib/postgresql
+      - ${POSTGRES_VOL_DB_DATA}:/var/lib/postgresql/data
