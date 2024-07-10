@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  # C'est le nom du container mongo
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ${MONGO_VOL_DATA}:/data/db
+      - ${MONGO_VOL_INIT_SCRIPT}:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "${MONGO_EXPRESS_PORT}:8081"
+    depends_on:
+      - mongodb
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      # Nom du conteneur mongo
+      - ME_CONFIG_MONGODB_SERVER=mongodb
